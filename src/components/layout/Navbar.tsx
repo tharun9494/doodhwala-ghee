@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,7 +25,10 @@ const Navbar = () => {
   ];
 
   return (
-    <nav
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
@@ -35,10 +39,13 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl md:text-3xl font-display font-bold text-gradient-gold">
+          <Link to="/" className="flex items-center gap-2 group">
+            <motion.span
+              whileHover={{ scale: 1.05 }}
+              className="text-2xl md:text-3xl font-display font-bold text-gradient-gold"
+            >
               DOODHWALA
-            </span>
+            </motion.span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -48,17 +55,19 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "text-sm font-medium transition-colors duration-200 relative",
+                  "text-sm font-medium transition-colors duration-200 relative py-2",
                   location.pathname === link.path
                     ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground",
-                  "after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300",
-                  location.pathname === link.path
-                    ? "after:w-full"
-                    : "after:w-0 hover:after:w-full"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {link.name}
+                {location.pathname === link.path && (
+                  <motion.span
+                    layoutId="navbar-indicator"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-ghee-gold to-ghee-amber rounded-full"
+                  />
+                )}
               </Link>
             ))}
           </div>
@@ -71,47 +80,65 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <motion.button
+            whileTap={{ scale: 0.95 }}
             className="md:hidden p-2 text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          </motion.button>
         </div>
 
         {/* Mobile Menu */}
-        <div
-          className={cn(
-            "md:hidden overflow-hidden transition-all duration-300",
-            isMobileMenuOpen ? "max-h-80 pt-4" : "max-h-0"
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden overflow-hidden"
+            >
+              <div className="flex flex-col gap-4 py-6">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <Link
+                      to={link.path}
+                      className={cn(
+                        "text-lg font-medium py-2 block transition-colors duration-200",
+                        location.pathname === link.path
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      )}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                ))}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <Button variant="hero" size="lg" asChild className="w-full mt-2">
+                    <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                      Order Now
+                    </Link>
+                  </Button>
+                </motion.div>
+              </div>
+            </motion.div>
           )}
-        >
-          <div className="flex flex-col gap-4 pb-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={cn(
-                  "text-base font-medium py-2 transition-colors duration-200",
-                  location.pathname === link.path
-                    ? "text-primary"
-                    : "text-muted-foreground"
-                )}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <Button variant="hero" size="lg" asChild className="mt-2">
-              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                Order Now
-              </Link>
-            </Button>
-          </div>
-        </div>
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
