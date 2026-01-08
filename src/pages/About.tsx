@@ -3,6 +3,8 @@ import Footer from "@/components/layout/Footer";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Heart, Eye, Target, Shield, Sparkles, Users } from "lucide-react";
+import farmImage from "@/assets/farm-cows.jpg";
+import bilonaImage from "@/assets/bilona-process.jpg";
 
 const values = [
   {
@@ -53,20 +55,13 @@ const About = () => {
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Image Placeholder */}
+              {/* Image */}
               <div className="relative">
-                <div className="aspect-[4/3] rounded-2xl bg-cream-warm overflow-hidden shadow-medium">
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-ghee-gold/20 to-ghee-amber/20">
-                    <div className="text-center p-8">
-                      <div className="w-20 h-20 mx-auto rounded-full bg-ghee-gold/30 flex items-center justify-center mb-4">
-                        <Heart className="w-10 h-10 text-ghee-amber" />
-                      </div>
-                      <p className="text-lg font-display font-semibold text-foreground">Made with Love</p>
-                      <p className="text-sm text-muted-foreground mt-1">Since Generations</p>
-                    </div>
-                  </div>
-                </div>
-                {/* Decorative */}
+                <img
+                  src={farmImage}
+                  alt="Desi cows grazing in green pastures"
+                  className="w-full rounded-2xl shadow-medium"
+                />
                 <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-ghee-gold/10 rounded-full blur-2xl -z-10" />
               </div>
 
@@ -92,12 +87,50 @@ const About = () => {
           </div>
         </section>
 
-        {/* Mission & Vision */}
+        {/* Bilona Method Section */}
         <section className="py-16 md:py-24 bg-cream-warm">
+          <div className="container mx-auto px-4">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Content */}
+              <div className="order-2 lg:order-1 space-y-6">
+                <span className="text-sm font-medium text-ghee-amber uppercase tracking-wider">
+                  Ancient Wisdom
+                </span>
+                <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
+                  The Sacred <span className="text-gradient-gold">Bilona</span> Method
+                </h2>
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    The Bilona method is an ancient Indian technique where curd is hand-churned using a wooden churner (Bilona) to extract butter. This butter is then slow-cooked on a low flame to produce the purest form of ghee.
+                  </p>
+                  <p>
+                    Unlike industrial processes that use cream separation, the Bilona method preserves the wholesome goodness of A2 milk, resulting in ghee that is richer in nutrients and has that distinctive, irresistible aroma.
+                  </p>
+                  <p>
+                    Every spoonful of DOODHWALA ghee is a result of this time-honored process, bringing you the authentic taste of tradition.
+                  </p>
+                </div>
+              </div>
+
+              {/* Image */}
+              <div className="order-1 lg:order-2 relative">
+                <img
+                  src={bilonaImage}
+                  alt="Traditional Bilona churning process"
+                  className="w-full rounded-2xl shadow-medium"
+                />
+                <div className="absolute -top-4 -left-4 w-28 h-28 bg-ghee-amber/15 rounded-full blur-2xl -z-10" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Mission & Vision */}
+        <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
               {/* Mission */}
-              <div className="p-8 md:p-10 bg-background rounded-2xl shadow-soft hover-lift">
+              <div className="p-8 md:p-10 bg-cream-warm rounded-2xl shadow-soft hover-lift">
                 <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-ghee-gold/10 text-ghee-amber mb-6">
                   <Target size={28} />
                 </div>
@@ -110,7 +143,7 @@ const About = () => {
               </div>
 
               {/* Vision */}
-              <div className="p-8 md:p-10 bg-background rounded-2xl shadow-soft hover-lift">
+              <div className="p-8 md:p-10 bg-cream-warm rounded-2xl shadow-soft hover-lift">
                 <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-ghee-gold/10 text-ghee-amber mb-6">
                   <Eye size={28} />
                 </div>
@@ -126,7 +159,7 @@ const About = () => {
         </section>
 
         {/* Values */}
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 bg-cream-warm">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-2xl mx-auto mb-14">
               <span className="text-sm font-medium text-ghee-amber uppercase tracking-wider">
@@ -138,10 +171,10 @@ const About = () => {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {values.map((value, index) => (
+              {values.map((value) => (
                 <div
                   key={value.title}
-                  className="text-center p-6 rounded-2xl bg-cream-warm/50 hover:bg-cream-warm transition-colors duration-300"
+                  className="text-center p-6 rounded-2xl bg-background hover:shadow-soft transition-all duration-300"
                 >
                   <div className="w-14 h-14 mx-auto flex items-center justify-center rounded-xl bg-ghee-gold/10 text-ghee-amber mb-5">
                     <value.icon size={28} />
