@@ -55,14 +55,8 @@ const Hero = () => {
               className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground leading-tight"
             >
               Pure Desi Ghee,{" "}
-              <span className="text-gradient-gold relative">
+              <span className="text-gradient-gold">
                 From Our Farms
-                <motion.span
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.8, delay: 0.8 }}
-                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-ghee-gold to-ghee-amber rounded-full origin-left"
-                />
               </span>{" "}
               to Your Home
             </motion.h1>
